@@ -53,7 +53,8 @@ podTemplate(yaml: '''
       steps {
           echo "Deployment started ..."
           sh "sed -i 's/pipeline:latest/pipeline:class: 'KubernetesEngineBuilder',
-              manifestPattern: 'deployment.yaml'            
+             manifestPattern: 'deployment.yaml',
+             verifyDeployments: true
       }
     }
       
