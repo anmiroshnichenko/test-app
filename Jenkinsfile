@@ -1,39 +1,53 @@
-podTemplate(containers: [
-    containerTemplate(
-        name: 'maven', 
-        image: 'maven:3.8.1-jdk-8', 
-        command: 'sleep', 
-        args: '30d'
-        ),
-    containerTemplate(
-        name: 'python', 
-        image: 'python:latest', 
-        command: 'sleep', 
-        args: '30d')
-  ]) {
-
-    node(POD_LABEL) {
-        stage('Get a Maven project') {
-            git 'https://github.com/spring-projects/spring-petclinic.git'
-            container('maven') {
-                stage('Build a Maven project') {
-                    sh '''
-                    echo "maven build"
-                    '''
-                }
-            }
+podTemplate(yaml: '''
+    apiVersion: v1
+    kind: Pod
+    spec:
+      containers:
+      - name: maven
+        image: maven:3.8.1-jdk-8
+        command:
+        - sleep
+        args:
+        - 60
+      - name: kaniko
+        image: gcr.io/kaniko-project/executor:debug
+        command:
+        - sleep
+        args:
+        - 60
+        volumeMounts:
+        - name: kaniko-secret
+          mountPath: /kaniko/.docker
+      restartPolicy: Never
+      volumes:
+      - name: kaniko-secret
+        secret:
+            secretName: dockercred
+            items:
+            - key: .dockerconfigjson
+              path: config.json
+''') {
+  node(POD_LABEL) {
+    stage('Get a Maven project') {
+      git url: 'https://github.com/scriptcamp/kubernetes-kaniko.git', branch: 'main'
+      container('maven') {
+        stage('Build a Maven project') {
+          sh '''
+          echo pwd
+          '''
         }
-
-        stage('Get a Python Project') {
-            git url: 'https://github.com/hashicorp/terraform.git', branch: 'main'
-            container('python') {
-                stage('Build a Go project') {
-                    sh '''
-                    echo "Go Build"
-                    '''
-                }
-            }
-        }
-
+      }
     }
+
+    stage('Build Java Image') {
+      container('kaniko') {
+        stage('Build a Go project') {
+          sh '''
+            /kaniko/executor --context `pwd` --destination bibinwilson/hello-kaniko:1.0
+          '''
+        }
+      }
+    }
+
+  }
 }
