@@ -49,12 +49,10 @@ podTemplate(yaml: '''
       }
     }
 
-     stage('Развертывание в Kubernetes') { 
-      steps { 
-        kubernetesDeploy( 
-          configs: 'deployment.yaml', kubeconfigId: 'my - kubeconfig' 
-        ) 
-      } 
-     }  
+     node {
+       stage('Apply Kubernetes files') {          
+            sh 'kubectl apply -f deployment.yaml'       
+      }
+    }
   }
 }
