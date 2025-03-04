@@ -39,7 +39,7 @@ podTemplate(yaml: '''
       }
     }
 
-    stage('Build Java Image') {
+    stage('Build test-app Image') {
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
@@ -49,5 +49,12 @@ podTemplate(yaml: '''
       }
     }
 
+    stage('Deploy to Kubernetes') {
+      steps {
+        kubernetesDeploy(
+          configs: 'deployment.yaml'
+          // kubeconfigId: 'my-kubeconfig'
+        )
+      }  
   }
 }
