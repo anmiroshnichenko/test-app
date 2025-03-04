@@ -41,10 +41,19 @@ podTemplate(yaml: '''
 
     stage('Build test-app Image') {
       container('kaniko') {
-        stage('Build a Go project') {
+        stage('Build a my project') {
           sh '''
             /kaniko/executor --context `pwd` --destination aleksandm/test-app:0.1.1
           '''
+        }
+      }
+    }
+    stage('deploy to dev') {
+      container ('maven') {
+        stage(' deploya my project') {
+          sh ```
+            sh 'envsubst < deployment.yaml | kubectl apply -f -'
+          ```
         }
       }
     }    
