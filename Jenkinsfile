@@ -52,7 +52,7 @@ podTemplate(yaml: '''
      stage('Развертывание в Kubernetes') { 
       steps { 
         kubernetesDeploy( 
-          configs: 'kubernetes/deployment.yaml', kubeconfigId: 'my - kubeconfig' 
+          configs: 'deployment.yaml', kubeconfigId: 'my - kubeconfig' 
         ) 
       } 
      }  
