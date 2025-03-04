@@ -51,10 +51,9 @@ podTemplate(yaml: '''
 
     stage('Deploy to Kubernetes') {
       steps {
-        kubernetesDeploy(
-          configs: 'deployment.yaml'
-          // kubeconfigId: 'my-kubeconfig'
-        )
+          echo "Deployment started ..."
+          sh "sed -i 's/pipeline:latest/pipeline:class: 'KubernetesEngineBuilder',
+              manifestPattern: 'deployment.yaml'            
       }
     }
       
