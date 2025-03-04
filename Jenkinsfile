@@ -51,9 +51,9 @@ podTemplate(yaml: '''
     stage('deploy to dev') {
       container ('maven') {
         stage(' deploya my project') {
-          sh ```
+          sh '''
             sh 'envsubst < deployment.yaml | kubectl apply -f -'
-          ```
+          '''
         }
       }
     }    
