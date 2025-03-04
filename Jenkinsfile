@@ -49,14 +49,12 @@ podTemplate(yaml: '''
       }
     }
 
-    stage('Deploy to Kubernetes') {
-      steps {
-          echo "Deployment started ..."
-          sh "sed -i 's/pipeline:latest/pipeline:class: 'KubernetesEngineBuilder'",
-             manifestPattern: 'deployment.yaml',
-             verifyDeployments: true
-      }
-    }
-      
+     stage('Развертывание в Kubernetes') { 
+      steps { 
+        kubernetesDeploy( 
+          configs: 'kubernetes/deployment.yaml', kubeconfigId: 'my - kubeconfig' 
+        ) 
+      } 
+     }  
   }
 }
