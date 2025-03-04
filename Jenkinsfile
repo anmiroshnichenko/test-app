@@ -43,7 +43,7 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination aleksandm/test-app:("${env.BUILD_NUMBER}")
+            /kaniko/executor --context `pwd` --destination aleksandm/test-app:0.1.1
           '''
         }
       }
