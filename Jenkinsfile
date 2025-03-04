@@ -50,8 +50,10 @@ podTemplate(yaml: '''
     }
 
      node {
-       stage('Apply Kubernetes files') {          
-            sh 'kubectl apply -f deployment.yaml'       
+       stage('Apply Kubernetes files') {
+         withKubeConfig([credentialsId: 'jenkins-admin', serverUrl: 'http://jenkins-service.devops-tools.svc.cluster.local:8080']) {
+             sh 'kubectl apply -f my-kubernetes-directory'
+        }
       }
     }
   }
