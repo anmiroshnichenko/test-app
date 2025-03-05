@@ -52,7 +52,7 @@ podTemplate(yaml: '''
       container ('maven') {
         stage(' deploy test-app') {
           sh '''
-          apt-get update && sudo apt-get install -y kubectl
+          apt-get update && apt-get install -y kubectl
           kubectl version
           '''
         }
