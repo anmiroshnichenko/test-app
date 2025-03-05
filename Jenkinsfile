@@ -2,6 +2,7 @@ podTemplate(yaml: '''
     apiVersion: v1
     kind: Pod
     spec:
+      serviceAccountName: jenkins-admin
       containers:
       - name: maven
         image: maven:3.8.1-jdk-8
