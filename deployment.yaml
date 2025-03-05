@@ -16,5 +16,5 @@ spec:
     spec:
       containers:
       - name: app-chart
-        image: aleksandm/test-app
+        image: aleksandm/test-app:0.1.1
         imagePullPolicy: IfNotPresent
