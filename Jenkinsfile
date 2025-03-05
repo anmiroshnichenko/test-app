@@ -33,7 +33,7 @@ podTemplate(yaml: '''
       container('maven') {
         stage('Build a Maven project') {
           sh '''
-          echo $(pwd)
+          echo pwd
           '''
         }
       }
@@ -52,7 +52,8 @@ podTemplate(yaml: '''
       container ('maven') {
         stage(' deploy test-app') {
           sh '''
-          echo pwd   
+          apt-get update && sudo apt-get install -y kubectl
+          kubectl version
           '''
         }
       }
