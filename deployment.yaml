@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: test-app
+  namespace: devops-tools
   labels:
     app: test-app
 spec:
@@ -18,3 +19,37 @@ spec:
       - name: app-chart
         image: aleksandm/test-app
         imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-app
+  namespace: devops-tools  
+spec:
+  selector: 
+    app: test-app-service
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80      
+
+# Ingress Config
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-app-ingress
+  namespace: devops-tools
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: test-app.zem.digital
+    http:
+      paths:       
+      - path: "/"
+        pathType: Prefix        
+        backend:
+          service:
+            name: test-app-service
+            port:
+              number: 80   
