@@ -49,10 +49,10 @@ podTemplate(yaml: '''
         }
       }
     }
-    stage('deploy to dev') {
-      when { tag "v1.0.0" }  
+    stage('deploy to dev') {        
       container ('maven') {
         stage('deploy test-app') {
+          when { tag "v1.0.0" }  
           sh '''
           curl -LO https://dl.k8s.io/release/v1.26.11/bin/linux/amd64/kubectl
           chmod +x ./kubectl 
