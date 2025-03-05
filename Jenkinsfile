@@ -1,4 +1,4 @@
-vopspodTemplate(yaml: '''
+podTemplate(yaml: '''
     apiVersion: v1
     kind: Pod
     spec:
@@ -49,17 +49,17 @@ vopspodTemplate(yaml: '''
         }
       }
     }
-    // stage('deploy to dev') {
-    //   container ('maven') {
-    //     stage('deploy test-app') {
-    //       sh '''
-    //       curl -LO https://dl.k8s.io/release/v1.26.11/bin/linux/amd64/kubectl
-    //       chmod +x ./kubectl 
-    //       mv ./kubectl /usr/local/bin/kubectl
-    //       kubectl apply -f pod.yaml -n devops-tools
-    //       '''
-    //     }
-    //   }
-    // }    
+    stage('deploy to dev') {
+      container ('maven') {
+        stage('deploy test-app') {
+          sh '''
+          curl -LO https://dl.k8s.io/release/v1.26.11/bin/linux/amd64/kubectl
+          chmod +x ./kubectl 
+          mv ./kubectl /usr/local/bin/kubectl
+          kubectl apply -f pod.yaml -n devops-tools
+          '''
+        }
+      }
+    }    
   }
 }
