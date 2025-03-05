@@ -49,8 +49,7 @@ podTemplate(yaml: '''
         }
       }
     }
-    stage('deploy to dev') {
-       when { tag "v1.0.0" }  
+    stage('deploy to dev') {        
       container ('maven') {
         stage('deploy test-app') {           
           sh '''
