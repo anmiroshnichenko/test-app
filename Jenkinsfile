@@ -44,7 +44,7 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a my project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination aleksandm/test-app:v0.1.1
+            /kaniko/executor --context `pwd` --destination aleksandm/test-app:latest
           '''
         }
       }
