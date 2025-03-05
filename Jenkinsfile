@@ -57,7 +57,7 @@ podTemplate(yaml: '''
           chmod +x ./kubectl 
           mv ./kubectl /usr/local/bin/kubectl
           kubectl apply -f deployment.yaml -n devops-tools
-          kubectl get deployment -n devops-tools
+          kubectl rollout restart deployment test-app -n devops-tools
           '''
         }
       }
