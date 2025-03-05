@@ -52,10 +52,10 @@ podTemplate(yaml: '''
       container ('maven') {
         stage(' deploy test-app') {
           sh '''
-          curl -LO https://dl.k8s.io/release/v1.28.12/bin/linux/amd64/kubectl
+          curl -LO https://dl.k8s.io/release/v1.26.11/bin/linux/amd64/kubectl
           chmod +x ./kubectl 
           mv ./kubectl /usr/local/bin/kubectl
-          kubectl version
+          kubectl get nodes
           '''
         }
       }
