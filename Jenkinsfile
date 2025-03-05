@@ -48,14 +48,14 @@ podTemplate(yaml: '''
         }
       }
     }
-    // stage('deploy to dev') {
-    //   container ('maven') {
-    //     stage(' deploya my project') {
-    //       sh '''
-    //         sh 'envsubst < deployment.yaml | kubectl apply -f -'
-    //       '''
-    //     }
-    //   }
-    // }    
+    stage('deploy to dev') {
+      container ('maven') {
+        stage(' deploy test-app') {
+          sh '''
+          echo pwd   
+          '''
+        }
+      }
+    }    
   }
 }
