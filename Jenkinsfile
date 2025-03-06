@@ -50,7 +50,7 @@ podTemplate(yaml: '''
       }
     }
     stage('deploy to dev') { 
-      when { branch 'master' }  
+      if $TAG_NAME == ""
       container ('maven') {
         stage('deploy test-app') {           
           sh '''
