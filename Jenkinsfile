@@ -50,7 +50,7 @@ podTemplate(yaml: '''
       }
     }
     stage('deploy to dev') { 
-      if ( env.TAG_NAME == 'v1.0.0'  )
+      if (env.TAG_NAME ==~ 'v1.0.0')
       container ('maven') {
         stage('deploy test-app') {           
           sh '''
