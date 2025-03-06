@@ -51,7 +51,7 @@ podTemplate(yaml: '''
     }
     stage('deploy to dev') { 
       echo "${env.TAG_NAME}"  
-      if (env.TAG_NAME != 'null')
+      if ("${env.TAG_NAME}" != 'null')
       container ('maven') {
         stage('deploy test-app') {           
           sh '''
