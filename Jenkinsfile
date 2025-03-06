@@ -49,7 +49,8 @@ podTemplate(yaml: '''
         }
       }
     }
-    stage('deploy to dev') {       
+    stage('deploy to dev') { 
+      when { branch 'master' }  
       container ('maven') {
         stage('deploy test-app') {           
           sh '''
