@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: test-app
-        image: aleksandm/test-app:{$TAG_NAME}
+        image: aleksandm/test-app
         imagePullPolicy: Always
 ---
 apiVersion: v1
