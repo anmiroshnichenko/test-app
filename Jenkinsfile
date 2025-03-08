@@ -55,11 +55,15 @@ podTemplate(yaml: '''
       container ('maven') {
         stage('deploy test-app') {           
           sh '''
-          curl -LO https://dl.k8s.io/release/v1.26.11/bin/linux/amd64/kubectl
-          chmod +x ./kubectl 
-          mv ./kubectl /usr/local/bin/kubectl
-          kubectl apply -f deployment.yaml -n devops-tools
-          kubectl rollout restart deployment test-app -n devops-tools
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash           
+          helm repo add app-chart  https://anmiroshnichenko.github.io/helmchartrepository/
+          helm upgrade --install test-app  app-chart/app-chart  -n devops-tools  --set   frontend.image.tag=v1.0.0
+          
+          // curl -LO https://dl.k8s.io/release/v1.26.11/bin/linux/amd64/kubectl
+          // chmod +x ./kubectl 
+          // mv ./kubectl /usr/local/bin/kubectl
+          // kubectl apply -f deployment.yaml -n devops-tools
+          // kubectl rollout restart deployment test-app -n devops-tools
           '''
         }
       }
