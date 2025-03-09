@@ -31,7 +31,7 @@ podTemplate(yaml: '''
   node(POD_LABEL) {
     stage('Get a  project') {
       // if ("${env.TAG_NAME}" == 'null')
-      git url: 'https://github.com/anmiroshnichenko/test-app.git'
+      git url: 'https://github.com/anmiroshnichenko/test-app.git', tag: $TAG_NAME
       // container('maven') {
       //   stage('Build a Maven project') {
       //     sh '''
