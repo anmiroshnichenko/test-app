@@ -32,9 +32,9 @@ podTemplate(yaml: '''
     stage('Get a  project') { 
       if (env.BRANCH_NAME == 'main') {     
         git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main'
-      } else {
-        git branch: 'v1.0.0', url: 'https://github.com/anmiroshnichenko/test-app'
-      }
+      // } else {
+      //   git branch: 'v1.0.0', url: 'https://github.com/anmiroshnichenko/test-app'
+      // }
     }    
     stage('Build test-app Image') {
       container('kaniko') {
