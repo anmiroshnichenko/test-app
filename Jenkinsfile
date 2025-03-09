@@ -31,13 +31,13 @@ podTemplate(yaml: '''
   node(POD_LABEL) {
     stage('Get a Maven project') {
       git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main'
-      container('maven') {
-        stage('Build a Maven project') {
-          sh '''
-          echo pwd
-          '''
-        }
-      }
+      // container('maven') {
+      //   stage('Build a Maven project') {
+      //     sh '''
+      //     echo pwd
+      //     '''
+      //   }
+      // }
     }
 
     stage('Build test-app Image') {
