@@ -27,6 +27,9 @@ podTemplate(yaml: '''
             items:
             - key: .dockerconfigjson
               path: config.json
+      - name: jenkins-data  
+        persistentVolumeClaim:
+          claimName: jenkins-pv-claim      
 ''') {
   node(POD_LABEL) {
     stage('Get a  project') { 
