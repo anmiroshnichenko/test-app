@@ -37,8 +37,8 @@ podTemplate(yaml: '''
       //     sh '''
       //     echo pwd
       //     '''
-        }
-      }
+      //   }
+      // }
     }
 
     stage('Build test-app Image') {
