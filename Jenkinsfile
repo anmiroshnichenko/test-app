@@ -29,7 +29,8 @@ podTemplate(yaml: '''
               path: config.json
 ''') {
   node(POD_LABEL) {
-    stage('Get a Maven project') {
+    stage('Get a  project') {
+      if ("${env.TAG_NAME}" == 'null')
       git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main'
       // container('maven') {
       //   stage('Build a Maven project') {
@@ -51,15 +52,14 @@ podTemplate(yaml: '''
     }
     stage('deploy to dev') { 
       echo "${env.TAG_NAME}"  
-      // if ("${env.TAG_NAME}" != 'null')
+      if ("${env.TAG_NAME}" != 'null')
       container ('maven') {
         stage('deploy test-app') {           
           sh '''
           curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
           chmod 700 get_helm.sh
-          ./get_helm.sh
-          helm version          
-          helm upgrade --install test-app  ./test-app-chart -n devops-tools         
+          ./get_helm.sh                    
+          helm upgrade --install test-app  ./test-app-chart -n devops-tools   --set frontend.image.tag=$TAG_NAME      
           '''
         }
       }
