@@ -1,0 +1,22 @@
+frontend:
+  image:
+    repository: aleksandm/test-app
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"  
+  replicaCount: 1
+
+  ingress:
+    enable: true
+    className: "nginx"     
+    hosts:
+      - host: test-app.zem.digital
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80  
