@@ -32,13 +32,13 @@ podTemplate(yaml: '''
     stage('Get a  project') {
       if ("${env.TAG_NAME}" == 'null')
       git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main'
-      // container('maven') {
-      //   stage('Build a Maven project') {
-      //     sh '''
-      //     echo pwd
-      //     '''
-      //   }
-      // }
+      container('maven') {
+        stage('Build a Maven project') {
+          sh '''
+          echo pwd
+          '''
+        }
+      }
     }
 
     stage('Build test-app Image') {
