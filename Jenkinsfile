@@ -35,6 +35,7 @@ podTemplate(yaml: '''
       } else {
         git url: 'https://github.com/anmiroshnichenko/test-app/tree/$TAG_NAME'
       }
+    }    
     stage('Build test-app Image') {
       container('kaniko') {
         stage('Build a my project') {
