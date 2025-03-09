@@ -59,7 +59,7 @@ podTemplate(yaml: '''
           chmod 700 get_helm.sh
           ./get_helm.sh
           helm version          
-          helm upgrade --install test-app  ./test-app-chart -n devops-tools --set frontend.image.tag=$TAG_NAME        
+          helm upgrade --install test-app  ./test-app-chart -n devops-tools         
           '''
         }
       }
