@@ -36,7 +36,7 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a my project') {
           sh '''
-          echo $pwd
+          pwd
           /kaniko/executor --context `pwd` --destination aleksandm/test-app:$TAG_NAME
           '''
         }
