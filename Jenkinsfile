@@ -33,7 +33,7 @@ podTemplate(yaml: '''
       if (env.BRANCH_NAME == 'main') {     
         git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main'
       } else {
-        git url: 'https://github.com/anmiroshnichenko/test-app.git' 
+        git branch: 'v1.0.0', url: 'https://github.com/anmiroshnichenko/test-app'
       }
     }    
     stage('Build test-app Image') {
