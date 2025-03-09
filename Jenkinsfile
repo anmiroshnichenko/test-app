@@ -29,9 +29,9 @@ podTemplate(yaml: '''
               path: config.json
 ''') {
   node(POD_LABEL) {
-    // stage('Get a  project') {      
-    //   git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main'      
-    // }
+    stage('Get a  project') {      
+      git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main'      
+    }
     stage('Build test-app Image') {
       container('kaniko') {
         stage('Build a my project') {
