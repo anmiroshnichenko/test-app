@@ -31,16 +31,8 @@ podTemplate(yaml: '''
   node(POD_LABEL) {
     stage('Get a  project') {
       // if ("${env.TAG_NAME}" != 'null')
-      git url: 'https://github.com/anmiroshnichenko/test-app.git', branches: [[main: 'refs/tags/${TAG}']]
-      // container('maven') {
-      //   stage('Build a Maven project') {
-      //     sh '''
-      //     echo pwd
-      //     '''
-      //   }
-      // }
+      git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main'      
     }
-
     stage('Build test-app Image') {
       container('kaniko') {
         stage('Build a my project') {
