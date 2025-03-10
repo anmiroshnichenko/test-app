@@ -19,8 +19,6 @@ podTemplate(yaml: '''
         volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
-        - name: jenkins-data
-          mountPath: /home/jenkins/agent/  
       restartPolicy: Never
       volumes:
       - name: kaniko-secret
@@ -28,12 +26,7 @@ podTemplate(yaml: '''
             secretName: dockercred
             items:
             - key: .dockerconfigjson
-              path: config.json 
-      - name: jenkins-data
-        persistentVolumeClaim:
-          claimName: jenkins-pv-claim     
-          readOnly: false
-      )                
+              path: config.json         
 ''') {
   node(POD_LABEL) {
     stage('Get a  project') {           
