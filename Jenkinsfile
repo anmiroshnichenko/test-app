@@ -30,7 +30,7 @@ podTemplate(yaml: '''
 ''') {
   node(POD_LABEL) {    
     stage('Get a  project') {
-      if ("${env.BRANCH_NAME}" == 'main') {
+      if ("${env.TAG_NAME}" == 'null') {
         checkout scmGit(
           branches: [[name: 'main']],
           userRemoteConfigs: [[url: 'https://github.com/anmiroshnichenko/test-app.git']])
