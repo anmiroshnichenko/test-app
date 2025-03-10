@@ -30,11 +30,9 @@ podTemplate(yaml: '''
 ''') {
   node(POD_LABEL) {    
     stage('Get a  project') {           
-      git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main' 
-    }    
-    stage('Build test-app Image') {
-      container('kaniko') {
-        stage('Build a my project') {
+      git url: 'https://github.com/anmiroshnichenko/test-app.git'       
+        container('kaniko') {
+          stage('Build a my project') {
           sh '''
           pwd
           /kaniko/executor --context `pwd` --destination aleksandm/test-app:$TAG_NAME
