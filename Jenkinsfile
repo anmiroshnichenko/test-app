@@ -47,10 +47,10 @@ podTemplate(yaml: '''
           pwd
           /kaniko/executor --context `pwd` --destination aleksandm/test-app:$TAG_NAME
           '''
+          }
         }
       }
-    }
-     
+    } 
     stage('deploy to dev') {         
       if ("${env.TAG_NAME}" != 'null')
       container ('maven') {
