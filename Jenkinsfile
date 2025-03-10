@@ -28,10 +28,7 @@ podTemplate(yaml: '''
             - key: .dockerconfigjson
               path: config.json                           
 ''') {
-  node(POD_LABEL) {
-    stage('Checkout') {  
-    checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: ''https://github.com/anmiroshnichenko/test-app.git', branches: [[name: 'refs/tags/${TAG}']]], poll: false
-  }
+  node(POD_LABEL) {    
     stage('Get a  project') {           
       git url: 'https://github.com/anmiroshnichenko/test-app.git'     
     }    
