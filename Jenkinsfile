@@ -18,9 +18,7 @@ podTemplate(yaml: '''
         - 60
         volumeMounts:
         - name: kaniko-secret
-          mountPath: /kaniko/.docker
-        - name: jenkins-data
-          mountPath: /home/jenkins/agent/  
+          mountPath: /kaniko/.docker         
       restartPolicy: Never
       volumes:
       - name: kaniko-secret
@@ -28,16 +26,12 @@ podTemplate(yaml: '''
             secretName: dockercred
             items:
             - key: .dockerconfigjson
-              path: config.json 
-      - name: jenkins-data
-        persistentVolumeClaim:
-          claimName: jenkins-pv-claim     
-          readOnly: false                      
+              path: config.json                           
 ''') {
   node(POD_LABEL) {
-    // stage('Get a  project') {           
-    //   git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'main'     
-    // }    
+    stage('Get a  project') {           
+      git url: 'https://github.com/anmiroshnichenko/test-app.git'     
+    }    
     stage('Build test-app Image') {
       container('kaniko') {
         stage('Build a my project') {
