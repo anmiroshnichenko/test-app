@@ -29,12 +29,12 @@ podTemplate(yaml: '''
               path: config.json                           
 ''') {
   node(POD_LABEL) {    
-    stage('Get a  project') {
-      if ("${env.TAG_NAME}" != 'null')           
+    stage('Get a  project') {                 
       checkout scmGit(
         branches: [[name: '**/tags/v*']], extensions: [], 
         userRemoteConfigs: [[refspec: '+refs/tags/v*:refs/remotes/origin/tags/v*', url: 'https://github.com/anmiroshnichenko/test-app.git']])        
       stage('Build test-app Image') {
+        if ("${env.TAG_NAME}" != 'null')
         container('kaniko') {
           stage('Build a my project') {
             sh '''
