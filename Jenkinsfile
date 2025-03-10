@@ -30,11 +30,10 @@ podTemplate(yaml: '''
 ''') {
   node(POD_LABEL) {    
     stage('Get a  project') {           
-      git url: 'https://github.com/anmiroshnichenko/test-app.git', extensions: [ cloneOption(honorRefspec: true) ], 
-        userRemoteConfigs: [[refspec: '+refs/tags/v*:refs/remotes/origin/tags/v*']]        
+      git url: git branch: '**/tags/v*', url: 'https://github.com/anmiroshnichenko/test-app.git'         
         container('kaniko') {
-          stage('Build a my project') {
-          sh '''S
+        stage('Build a my project') {
+          sh '''
           pwd
           /kaniko/executor --context `pwd` --destination aleksandm/test-app:$TAG_NAME
           '''
