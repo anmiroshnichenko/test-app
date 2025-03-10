@@ -39,8 +39,7 @@ podTemplate(yaml: '''
           branches: [[name: '**/tags/v*']], extensions: [], 
           userRemoteConfigs: [[refspec: '+refs/tags/v*:refs/remotes/origin/tags/v*', url: 'https://github.com/anmiroshnichenko/test-app.git']])
       }
-    stage('Build test-app Image') {
-      if ("${env.TAG_NAME}" != 'null')
+    stage('Build test-app Image') {      
       container('kaniko') {
         stage('Build a my project') {
           sh '''
