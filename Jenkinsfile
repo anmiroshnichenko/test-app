@@ -29,24 +29,29 @@ podTemplate(yaml: '''
               path: config.json                           
 ''') {
   node(POD_LABEL) {    
-    stage('Get a  project') {                 
-      checkout scmGit(
-        branches: [[name: '**/tags/v*']], extensions: [], 
-        userRemoteConfigs: [[refspec: '+refs/tags/v*:refs/remotes/origin/tags/v*', url: 'https://github.com/anmiroshnichenko/test-app.git']])        
-      stage('Build test-app Image') {
-        if ("${env.TAG_NAME}" != 'null')
-        container('kaniko') {
-          stage('Build a my project') {
-            sh '''
-            pwd
-            /kaniko/executor --context `pwd` --destination aleksandm/test-app:$TAG_NAME
-            '''
-          }
+    stage('Get a  project') {
+      if (env.BRANCH_NAME == 'main') {
+        checkout scmGit(
+          branches: [[name: 'main']],
+          userRemoteConfigs: [[url: 'https://github.com/anmiroshnichenko/test-app.git']])
+      }  else {                
+        checkout scmGit(
+          branches: [[name: '**/tags/v*']], extensions: [], 
+          userRemoteConfigs: [[refspec: '+refs/tags/v*:refs/remotes/origin/tags/v*', url: 'https://github.com/anmiroshnichenko/test-app.git']])
+      }
+    stage('Build test-app Image') {
+      if ("${env.TAG_NAME}" != 'null')
+      container('kaniko') {
+        stage('Build a my project') {
+          sh '''
+          pwd
+          /kaniko/executor --context `pwd` --destination aleksandm/test-app:$TAG_NAME
+          '''
         }
       }
-    }  
-    stage('deploy to dev') { 
-      // echo "${env.TAG_NAME}"  
+    }
+     
+    stage('deploy to dev') {         
       if ("${env.TAG_NAME}" != 'null')
       container ('maven') {
         stage('deploy test-app') {           
