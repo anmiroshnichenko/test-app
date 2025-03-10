@@ -29,21 +29,22 @@ podTemplate(yaml: '''
               path: config.json                           
 ''') {
   node(POD_LABEL) {    
-    stage('Get a  project') {           
+    stage('Get a  project') {
+      if ("${env.TAG_NAME}" != 'null')           
       checkout scmGit(
         branches: [[name: '**/tags/v*']], extensions: [], 
-        userRemoteConfigs: [[refspec: '+refs/tags/v*:refs/remotes/origin/tags/v*', url: 'https://github.com/anmiroshnichenko/test-app.git']])     
-    }    
-    stage('Build test-app Image') {
-      container('kaniko') {
-        stage('Build a my project') {
-          sh '''
-          pwd
-          /kaniko/executor --context `pwd` --destination aleksandm/test-app:$TAG_NAME
-          '''
+        userRemoteConfigs: [[refspec: '+refs/tags/v*:refs/remotes/origin/tags/v*', url: 'https://github.com/anmiroshnichenko/test-app.git']])        
+      stage('Build test-app Image') {
+        container('kaniko') {
+          stage('Build a my project') {
+            sh '''
+            pwd
+            /kaniko/executor --context `pwd` --destination aleksandm/test-app:$TAG_NAME
+            '''
+          }
         }
       }
-    }
+    }  
     stage('deploy to dev') { 
       // echo "${env.TAG_NAME}"  
       if ("${env.TAG_NAME}" != 'null')
