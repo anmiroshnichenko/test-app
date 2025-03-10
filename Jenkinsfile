@@ -32,8 +32,7 @@ podTemplate(yaml: '''
       - name: jenkins-data
         persistentVolumeClaim:
           claimName: jenkins-pv-claim     
-          readOnly: false
-      )                
+          readOnly: false                      
 ''') {
   node(POD_LABEL) {
     stage('Get a  project') {           
