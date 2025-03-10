@@ -30,7 +30,9 @@ podTemplate(yaml: '''
 ''') {
   node(POD_LABEL) {    
     stage('Get a  project') {           
-      git url: 'https://github.com/anmiroshnichenko/test-app.git', branch: 'v1.0.3'     
+      checkout scmGit(
+        branches: [[name: '**/tags/v*']], extensions: [], 
+        userRemoteConfigs: [[refspec: '+refs/tags/v*:refs/remotes/origin/tags/v*', url: 'https://github.com/anmiroshnichenko/test-app.git']])     
     }    
     stage('Build test-app Image') {
       container('kaniko') {
