@@ -36,7 +36,7 @@ podTemplate(yaml: '''
           userRemoteConfigs: [[url: 'https://github.com/anmiroshnichenko/test-app.git']])
       } else {                
           checkout scmGit(
-            branches: [[name: '**/tags/v*']], extensions: [], 
+            branches: [[name: '**/tags/${env.TAG_NAME}']], extensions: [], 
             userRemoteConfigs: [[refspec: '+refs/tags/v*:refs/remotes/origin/tags/v*', url: 'https://github.com/anmiroshnichenko/test-app.git']])
       }
     stage('Build test-app Image') {      
